@@ -9,9 +9,9 @@ from ev3dev.auto import *
 print 'Setting input values'
 power = 40
 target = 55
-kp = float(0.65)
-kd = 3
-ki = float(0.02)
+kp = float(0.65) # Start value 1
+kd = 3           # Start value 0
+ki = float(0.02) # Start value 0
 direction = -1
 minRef = 44
 maxRef = 60
