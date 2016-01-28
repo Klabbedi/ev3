@@ -103,28 +103,28 @@ def run(power, target, kp, kd, ki, direction, minRef, maxRef):
 	right_motor.run_direct()
 	lap = 1
 	while True :
-		print "Lap: " + str(lap)
-		if btn.any():
+#		print "Lap: " + str(lap)
+		if ts.value():
 			print 'Breaking loop'
 			break
 		refRead = col.value()
-		print 'Reflective value: ' + str(refRead)
+#		print 'Reflective value: ' + str(refRead)
 		error = target - (100 * ( refRead - minRef ) / ( maxRef - minRef ))
-		print 'Error: ' + str(error)
+#		print 'Error: ' + str(error)
 		derivative = error - lastError
-		print 'Derivative: ' + str(derivative)
+#		print 'Derivative: ' + str(derivative)
 		lastError = error
-		print 'Last error: ' + str(lastError)
+#		print 'Last error: ' + str(lastError)
 		integral = float(0.5) * integral + error
-		print 'Integral: ' + str(integral)
+#		print 'Integral: ' + str(integral)
 		course = (kp * error + kd * derivative +ki * integral) * direction
-		print 'Course: ' + str(course)
-		print 'Steering: ' + str(steering2(course,power))
+#		print 'Course: ' + str(course)
+#		print 'Steering: ' + str(steering2(course,power))
 		for (motor, pow) in zip((left_motor, right_motor), steering2(course, power)):
 			motor.duty_cycle_sp = pow
-			print 'Pow: ' + str(pow)
+#			print 'Pow: ' + str(pow)
 		lap = lap + 1
-		print '-----'
+#		print '-----'
 		sleep(0.1)
 
 run(power, target, kp, kd, ki, direction, minRef, maxRef)
