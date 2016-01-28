@@ -117,13 +117,13 @@ def run(power, target, kp, kd, ki, direction, minRef, maxRef):
 		print 'Integral: ' + str(integral)
 		course = (kp * error + kd * derivative +ki * integral) * direction
 		print 'Course: ' + str(course)
-		print 'Steering: ' + str(steering(course,power))
-		for (motor, pow) in zip((left_motor, right_motor), steering(course, power)):
+		print 'Steering: ' + str(steering2(course,power))
+		for (motor, pow) in zip((left_motor, right_motor), steering2(course, power)):
 			motor.duty_cycle_sp = pow
 			print 'Pow: ' + str(pow)
 		lap = lap + 1
 		print '-----'
-		sleep(1)
+		sleep(0.1)
 
 run(power, target, kp, kd, ki, direction, minRef, maxRef)
 
