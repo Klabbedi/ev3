@@ -65,8 +65,12 @@ def steering(course, power):
 
 	if course >= 0:
 		pr *= s
+		if course > 100:
+			pr = - power
 	else:
 		pl *= s
+		if course < -100:
+			pl = - power
 
 	return (int(pl), int(pr))
 
