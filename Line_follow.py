@@ -102,7 +102,7 @@ def run(power, target, kp, kd, ki, direction, minRef, maxRef):
 	left_motor.run_direct()
 	right_motor.run_direct()
 	lap = 1
-	while True :
+	while not btn.any() :
 #		print "Lap: " + str(lap)
 		if ts.value():
 			print 'Breaking loop'
