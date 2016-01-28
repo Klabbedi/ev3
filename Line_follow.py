@@ -9,11 +9,11 @@ from ev3dev.auto import *
 print 'Setting input values'
 power = 40
 target = 55
-kp = float(0.65) # Start value 1
-kd = 3           # Start value 0
-ki = float(0.02) # Start value 0
+kp = float(1) # Start value 1
+kd = 0           # Start value 0
+ki = float(0.0) # Start value 0
 direction = -1
-minRef = 44
+minRef = 40
 maxRef = 60
 # -------------------
 
@@ -78,12 +78,14 @@ def steering2(course, power):
 	if course >= 0:
 		if course > 100:
 			pr = 0
+			pl = power
 		else:	
 			pl = power
 			pr = power - ((power * course) / 100)
 	else:
 		if course < -100:
 			pl = 0
+			pr = power
 		else:
 			pr = power
 			pl = power + ((power * course) / 100)
