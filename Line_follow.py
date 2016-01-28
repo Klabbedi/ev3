@@ -73,6 +73,21 @@ def steering(course, power):
 			pl = - power
 
 	return (int(pl), int(pr))
+	
+def steering2(course, power):
+	if course >= 0:
+		if course > 100:
+			pr = 0
+		else:	
+			pl = power
+			pr = power - ((power * course) / 100)
+	else:
+		if course < -100:
+			pl = 0
+		else:
+			pr = power
+			pl = power + ((power * course) / 100)
+	return (int(pl), int(pr))
 
 def run(power, target, kp, kd, ki, direction, minRef, maxRef):
 	"""
