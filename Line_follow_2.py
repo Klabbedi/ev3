@@ -24,10 +24,10 @@ left_motor = LargeMotor(OUTPUT_B);  assert left_motor.connected
 right_motor = LargeMotor(OUTPUT_C); assert right_motor.connected
 # One left and one right motor should be connected
 
-# Connect infrared, color and touch sensors and check that they
+# Connect color and touch sensors and check that they
 # are connected.
 print 'Connecting sensors'
-ir = InfraredSensor(); 	assert ir.connected
+#ir = InfraredSensor(); 	assert ir.connected
 ts = TouchSensor();    	assert ts.connected
 col= ColorSensor(); 	assert col.connected
 
@@ -40,40 +40,6 @@ col.mode = 'COL-REFLECT'
 print 'Adding button'
 btn = Button()
 
-def steering(course, power):
-	"""
-	Computes how fast each motor in a pair should turn to achieve the
-	specified steering.
-	Input:
-		direction [-100, 100]:
-		* -100 means turn left as fast as possible,
-		*  0   means drive in a straight line, and
-		*  100 means turn right as fast as possible.
-	power: the power that should be applied to the outmost motor (the one
-		rotating faster). The power of the other motor will be computed
-		automatically.
-	Output:
-		a tuple of power values for a pair of motors.
-	Example:
-		for (motor, power) in zip((left_motor, right_motor), steering(50, 90)):
-			motor.run_forever(speed_sp=power)
-	"""
-
-	pl = power
-	pr = power
-	s = (50 - abs(float(course))) / 50
-
-	if course >= 0:
-		pr *= s
-		if course > 100:
-			pr = - power
-	else:
-		pl *= s
-		if course < -100:
-			pl = - power
-
-	return (int(pl), int(pr))
-	
 def steering2(course, power):
 	if course >= 0:
 		if course > 100:
@@ -95,7 +61,6 @@ def run(power, target, kp, kd, ki, direction, minRef, maxRef):
 	"""
 	Description...
 	"""
-	print 'Run module..'
 	lastError = 0
 	error = 0
 	integral = 0
@@ -103,28 +68,18 @@ def run(power, target, kp, kd, ki, direction, minRef, maxRef):
 	right_motor.run_direct()
 	lap = 1
 	while not btn.any() :
-#		print "Lap: " + str(lap)
 		if ts.value():
 			print 'Breaking loop'
 			break
 		refRead = col.value()
-#		print 'Reflective value: ' + str(refRead)
 		error = target - (100 * ( refRead - minRef ) / ( maxRef - minRef ))
-#		print 'Error: ' + str(error)
 		derivative = error - lastError
-#		print 'Derivative: ' + str(derivative)
 		lastError = error
-#		print 'Last error: ' + str(lastError)
 		integral = float(0.5) * integral + error
-#		print 'Integral: ' + str(integral)
 		course = (kp * error + kd * derivative +ki * integral) * direction
-#		print 'Course: ' + str(course)
-#		print 'Steering: ' + str(steering(course,power))
-		for (motor, pow) in zip((left_motor, right_motor), steering(course, power)):
+		for (motor, pow) in zip((left_motor, right_motor), steering2(course, power)):
 			motor.duty_cycle_sp = pow
-#			print 'Pow: ' + str(pow)
 		lap = lap + 1
-#		print '-----'
 		sleep(0.01)
 
 run(power, target, kp, kd, ki, direction, minRef, maxRef)
