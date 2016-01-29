@@ -6,7 +6,6 @@ from time import sleep
 from ev3dev.auto import *
 
 # ------Input--------
-print 'Setting input values'
 power = 60
 target = 55
 kp = float(0.65) # Start value 1
@@ -19,25 +18,21 @@ maxRef = 63
 
 # Connect two large motors on output ports B and C and check that
 # the device is connected using the 'connected' property.
-print 'Connecting motors'
 left_motor = LargeMotor(OUTPUT_B);  assert left_motor.connected
 right_motor = LargeMotor(OUTPUT_C); assert right_motor.connected
 # One left and one right motor should be connected
 
 # Connect color and touch sensors and check that they
 # are connected.
-print 'Connecting sensors'
 # ir = InfraredSensor(); 	assert ir.connected
 ts = TouchSensor();    	assert ts.connected
 col= ColorSensor(); 	assert col.connected
 
 # Change color sensor mode
-print 'Setting color sensor mode'
 col.mode = 'COL-REFLECT'
 
 # Adding button so it would be possible to break the loop using
 # one of the buttons on the brick
-print 'Adding button'
 btn = Button()
 
 def steering(course, power):
@@ -45,10 +40,10 @@ def steering(course, power):
 	Computes how fast each motor in a pair should turn to achieve the
 	specified steering.
 	Input:
-		direction [-100, 100]:
+		course [-100, 100]:
 		* -100 means turn left as fast as possible,
 		*  0   means drive in a straight line, and
-		*  100 means turn right as fast as possible.
+		*  100 means turn right as fast as possible.        
 	power: the power that should be applied to the outmost motor (the one
 		rotating faster). The power of the other motor will be computed
 		automatically.
