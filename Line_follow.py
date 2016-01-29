@@ -43,7 +43,9 @@ def steering(course, power):
 		course [-100, 100]:
 		* -100 means turn left as fast as possible,
 		*  0   means drive in a straight line, and
-		*  100 means turn right as fast as possible.        
+		*  100  means turn right as fast as possible.
+		* If >100 pr = -power
+		* If <100 pl = power        
 	power: the power that should be applied to the outmost motor (the one
 		rotating faster). The power of the other motor will be computed
 		automatically.
@@ -71,7 +73,16 @@ def steering(course, power):
 
 def run(power, target, kp, kd, ki, direction, minRef, maxRef):
 	"""
-	Description...
+	PID controlled line follower algoritm used to calculate left and right motor power.
+	Input:
+		power. Max motor power on any of the motors
+		target. 
+		kp.
+		ki.
+		kd.
+		direction.
+		minRef. Min reflecting value of floor or line
+		maxRef. Max reflecting value of floor or line 
 	"""
 	lastError = 0
 	error = 0
