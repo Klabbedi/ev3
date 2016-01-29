@@ -11,8 +11,8 @@ col= ColorSensor();		 assert col.connected
 col.mode = 'COL-REFLECT'
 
 def run():
-  left_motor.run_direct(duty_cycle_sp=10)
-  right_motor.run_direct(duty_cycle_sp=10)
+  left_motor.run_direct(duty_cycle_sp=30)
+  right_motor.run_direct(duty_cycle_sp=30)
   max_ref = 0
   min_ref = 100
   end_time = time() + 5
