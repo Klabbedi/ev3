@@ -7,14 +7,14 @@ from ev3dev.auto import *
 
 # ------Input--------
 print 'Setting input values'
-power = 40
+power = 60
 target = 55
-kp = float(1) # Start value 1
-kd = 0           # Start value 0
-ki = float(0.0) # Start value 0
+kp = float(0.65) # Start value 1
+kd = 1           # Start value 0
+ki = float(0.02) # Start value 0
 direction = -1
-minRef = 40
-maxRef = 60
+minRef = 41
+maxRef = 63
 # -------------------
 
 # Connect two large motors on output ports B and C and check that
@@ -119,13 +119,13 @@ def run(power, target, kp, kd, ki, direction, minRef, maxRef):
 #		print 'Integral: ' + str(integral)
 		course = (kp * error + kd * derivative +ki * integral) * direction
 #		print 'Course: ' + str(course)
-#		print 'Steering: ' + str(steering2(course,power))
-		for (motor, pow) in zip((left_motor, right_motor), steering2(course, power)):
+#		print 'Steering: ' + str(steering(course,power))
+		for (motor, pow) in zip((left_motor, right_motor), steering(course, power)):
 			motor.duty_cycle_sp = pow
 #			print 'Pow: ' + str(pow)
 		lap = lap + 1
 #		print '-----'
-		sleep(0.1)
+		sleep(0.01)
 
 run(power, target, kp, kd, ki, direction, minRef, maxRef)
 
