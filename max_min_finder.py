@@ -27,3 +27,5 @@ def run():
   print 'Max: ' + str(max_ref)
   print 'Min: ' + str(min_ref)
   sleep(1)
+
+run()
