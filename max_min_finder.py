@@ -10,4 +10,5 @@ right_motor = LargeMotor(OUTPUT_C); assert right_motor.connected
 col= ColorSensor();		 assert col.connected
 col.mode = 'COL-REFLECT'
 
-def run():left_motor.run_timed(duty_cycle_sp=10, time_sp=4000)
+def run():
+  left_motor.run_timed(duty_cycle_sp=10, time_sp=4000)
