@@ -8,9 +8,9 @@ from ev3dev.auto import *
 # ------Input--------
 power = 60
 target = 55
-kp = float(0.65) # Start value 1
-kd = 1           # Start value 0
-ki = float(0.02) # Start value 0
+kp = float(0.65) # Proportional gain, Start value 1
+kd = 1           # Derivative gain, Start value 0
+ki = float(0.02) # Integral gain, Start value 0
 direction = -1
 minRef = 41
 maxRef = 63
@@ -56,20 +56,19 @@ def steering(course, power):
 			motor.run_forever(speed_sp=power)
 	"""
 
-	pl = power
-	pr = power
+	power_left = power_right = power
 	s = (50 - abs(float(course))) / 50
 
 	if course >= 0:
-		pr *= s
+		power_right *= s
 		if course > 100:
-			pr = - power
+			power_right = - power
 	else:
-		pl *= s
+		power_left *= s
 		if course < -100:
-			pl = - power
+			power_left = - power
 
-	return (int(pl), int(pr))
+	return (int(power_left), int(power_right))
 
 def run(power, target, kp, kd, ki, direction, minRef, maxRef):
 	"""
@@ -84,14 +83,11 @@ def run(power, target, kp, kd, ki, direction, minRef, maxRef):
 		minRef. Min reflecting value of floor or line
 		maxRef. Max reflecting value of floor or line 
 	"""
-	lastError = 0
-	error = 0
-	integral = 0
+	lastError = error = integral = 0
 	left_motor.run_direct()
 	right_motor.run_direct()
-	lap = 1
 	while not btn.any() :
-		if ts.value():
+		if ts.value(): # User pressed the touch sensor
 			print 'Breaking loop'
 			break
 		refRead = col.value()
@@ -102,7 +98,6 @@ def run(power, target, kp, kd, ki, direction, minRef, maxRef):
 		course = (kp * error + kd * derivative +ki * integral) * direction
 		for (motor, pow) in zip((left_motor, right_motor), steering(course, power)):
 			motor.duty_cycle_sp = pow
-		lap = lap + 1
 		sleep(0.01) # Aprox 100 Hz
 
 run(power, target, kp, kd, ki, direction, minRef, maxRef)
