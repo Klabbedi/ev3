@@ -1,7 +1,5 @@
 # PID Controlled line follower
 
-![alt text](https://github.com/Klabbedi/ev3/blob/line-follow-edit/Line_follower_1.jpg "Line follower robot")
-
 I recently read the “The Art of LEGO MINDSTORMS EV3 Programming (Full Color)” book by Terry Griffin and tried to recreate the PID controlled line follower (chapter 19) in Python instead of in the Mindstorms environment. I have created three small programs here but with very limited documentation.
 
 The first one, `max_min_finder.py`, could be used to find max and min readings from the color sensor in reflective mode. Place the robot ~10cm from the line (perpendicular) and run the robot from Stash ssh. Max and Min values will be printed in the console.
