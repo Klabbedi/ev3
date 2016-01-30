@@ -2,11 +2,11 @@
 
 I recently read the “The Art of LEGO MINDSTORMS EV3 Programming (Full Color)” book by Terry Griffin and tried to recreate the PID controlled line follower (chapter 19) in Python instead of in the Mindstorms environment. I have created three small programs here but with very limited documentation.
 
-The first one, max_min_finder.py, could be used to find max and min readings from the color sensor in reflective mode. Place the robot ~10cm from the line (perpendicular) and run the robot from Stash ssh. Max and Min values will be printed in the console.
+The first one, `max_min_finder.py`, could be used to find max and min readings from the color sensor in reflective mode. Place the robot ~10cm from the line (perpendicular) and run the robot from Stash ssh. Max and Min values will be printed in the console.
 
-The second one, Line_follow.py uses a PID algorithm to calculate the necessary direction based on the readings from the color sensor, history etc. There is a much better explanation in chapter 19 in the above book. The steering module in this program computes how fast (-100 to 100) each motor in a pair should turn to achieve the specified steering based on the direction from the PID algorithm.
+The second one, `Line_follow.py` uses a PID algorithm to calculate the necessary direction based on the readings from the color sensor, history etc. There is a much better explanation in chapter 19 in the above book. The steering module in this program computes how fast (-100 to 100) each motor in a pair should turn to achieve the specified steering based on the direction from the PID algorithm.
 
-The third one, Line_follow_2.py is like the above but with another steering function that maybe are easier on the motors, I don't know, but it does not work as good as the first one.
+The third one, `Line_follow_2.py` is like the above but with another steering function that maybe are easier on the motors, I don't know, but it does not work as good as the first one.
 
 Before it works any good you need to tune the controller.
 
