@@ -59,7 +59,16 @@ def steering2(course, power):
 
 def run(power, target, kp, kd, ki, direction, minRef, maxRef):
 	"""
-	Description...
+	PID controlled line follower algoritm used to calculate left and right motor power.
+	Input:
+		power. Max motor power on any of the motors
+		target. Normalized target value.
+		kp. Proportional gain
+		ki. Integral gain
+		kd. Derivative gain
+		direction. 1 or -1 depending on the direction the robot should steer
+		minRef. Min reflecting value of floor or line
+		maxRef. Max reflecting value of floor or line 
 	"""
 	lastError = 0
 	error = 0
