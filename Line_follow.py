@@ -76,11 +76,11 @@ def run(power, target, kp, kd, ki, direction, minRef, maxRef):
 	PID controlled line follower algoritm used to calculate left and right motor power.
 	Input:
 		power. Max motor power on any of the motors
-		target. 
-		kp.
-		ki.
-		kd.
-		direction.
+		target. Normalized target value.
+		kp. Proportional gain
+		ki. Integral gain
+		kd. Derivative gain
+		direction. 1 or -1 depending on the direction the robot should steer
 		minRef. Min reflecting value of floor or line
 		maxRef. Max reflecting value of floor or line 
 	"""
