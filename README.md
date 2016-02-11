@@ -9,7 +9,6 @@ The first thing you need to do is to build a simple robot according to the pictu
 * One swivel wheel in the back.
 * Color sensor mounted 5-10cm in front of the robot and 5-10mm above the floor.  
 ![Lego Mindstorms Line Follower Model](Line_follower_600x450.jpg)
-![Lego Mindstorms Line Follower Model](https://github.com/Klabbedi/ev3/blob/master/Line_follower_600x450.jpg)
 
 ## Install ev3dev on a MicroSD card
 You don't need to flash any firmware or so. [ev3dev](http://www.ev3dev.org/) (which is like Debian Linux for EV3) installs on a MicroSD card and when it's inserted in the brick it boots from there instead of from the regular Mindstorms OS. The whole process is documented on the [ev3dev](http://www.ev3dev.org/) homepage. Python 2 and 3 are already installed in the [ev3dev](http://www.ev3dev.org/) environment.
@@ -32,8 +31,7 @@ Picture.
 
 ### From Windows using Putty
 The interface is self explanatory. Enter IP address and username “robot” and password “maker” when prompted.  
-![ev3dev](ev3dev.png)
-![ev3dev](https://github.com/Klabbedi/ev3/blob/master/ev3dev.png)
+![ev3dev](ev3dev.PNG)
 
 ## Line Follower program
 Ok. We now have almost everything we need.  
@@ -48,7 +46,6 @@ All we need to do now is to write the programs
 ### max_min_finder.py
 The first thing we need to do is to detect max and min sensor readings in our environment (a calibration to be able to set our target). Place the robot approximatly 10cm from the line (perpendicular) and run the program. Make sure it passes the line.  
 ![Line](line.png)
-![Line](https://github.com/Klabbedi/ev3/blob/master/line.png)
 
 #### Program Description
 - Import modules
