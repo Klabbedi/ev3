@@ -1,10 +1,10 @@
-﻿# Build a PID Controlled Line Following robot Using Lego Mindstorms, ev3dev, Pythonista and Python
+﻿# Build a PID Controlled Line Following Robot Using Lego Mindstorms, ev3dev, Pythonista and Python
 
 ## Background and Project Overview
 This year i bought a Lego Mindstorms [Lego Mindstorms](http://www.lego.com/en-us/mindstorms/?domainredir=mindstorms.lego.com&ignorereferer=true) set for my kids and myself for Christmas. My kids are still mainly focused on "pimping" our robots but I started to wonder if there was an alternative to the provided “Lab View'ish” environment and I found the cool [ev3dev](http://www.ev3dev.org/) project on the web. I decided to try to see if I was able to recreate the [PID](https://en.wikipedia.org/wiki/PID_controller) controlled line follower robot found in the _The Art of Lego Mindstorms EV3 Programming_ book by _Terry Griffin_. I am obviously no programmer so it was a fun challenge for me and I will try to explain the necessary steps below.
 
 ## Build the robot
-The first thing you need to do is to build a simple robot according to the picture. Exact details are not important as long as the following points are fullfilled.
+The first thing you need to do is to build a simple robot according to the picture. Exact details are not important as long as you follow these "rules".
 * The robot should have two front wheels, each connected to a large motor.
 * One swivel wheel in the back.
 * Color sensor mounted 5-10cm in front of the robot and 5-10mm above the floor.  
@@ -15,7 +15,7 @@ The first thing you need to do is to build a simple robot according to the pictu
 You don't need to flash any firmware or so. [ev3dev](http://www.ev3dev.org/) (which is like Debian Linux for EV3) installs on a MicroSD card and when it's inserted in the brick it boots from there instead of from the regular Mindstorms OS. The whole process is documented on the [ev3dev](http://www.ev3dev.org/) homepage. Python 2 and 3 are already installed in the [ev3dev](http://www.ev3dev.org/) environment.
 
 ## Transfer files to the brick
-There are several ways to transfer files to the brick under [ev3dev](http://www.ev3dev.org/). USB (not tested), Bluetooth and WiFi. Bluetooth support are included in the brick but unfortunately it has no WiFi adapter built in. The support for USB WiFi adapters is also poor by default (I don't know if [ev3dev](http://www.ev3dev.org/) has better support) but I managed to find an [Edimax N150 WiFi Nano USB Adapter](http://www.webhallen.com/se-sv/datorer_och_tillbehor/181753-edimax_150mbps_wireless_nano_usb_adapter&atcl=search:live) at [Webhallen](http://www.webhallen.com/) here in Sweden that seem to work fine. Both WiFi and Bluetooth requires a little fiddling but most of the info was on the [ev3dev](http://www.ev3dev.org/) homepage or could be figured out anyway. I decided to focus on the WiFi way.
+There are several ways to transfer files to the brick under [ev3dev](http://www.ev3dev.org/). USB (not tested), Bluetooth and WiFi. Bluetooth support are included in the brick but unfortunately it has no WiFi adapter built in. The support for USB WiFi adapters is also poor by default (I don't know if [ev3dev](http://www.ev3dev.org/) has better support) but I managed to find an [Edimax N150 WiFi Nano USB Adapter](http://www.webhallen.com/se-sv/datorer_och_tillbehor/181753-edimax_150mbps_wireless_nano_usb_adapter&atcl=search:live) at [Webhallen](http://www.webhallen.com/) here in Sweden that seem to work fine in both environments. Both WiFi and Bluetooth requires a little fiddling but most of the info was on the [ev3dev](http://www.ev3dev.org/) homepage or could be figured out anyway. I decided to focus on the WiFi way.
 
 ### From IOS using Pythonista and StaSh
 I love the [Pythonista]([Pythonista](http://omz-software.com/pythonista/) project and it's dedicated [community](https://forum.omz-software.com/) and decided to start here, if I needed help they would probably provide the quickest and best support. I installed [StaSh](https://github.com/ywangd/stash) and with some help from from the [community](https://forum.omz-software.com/) especially from [Ywangd](https://github.com/ywangd) and [Dgelessus](https://github.com/dgelessus) I managed to figure out how to send files from [Pythonista]([Pythonista](http://omz-software.com/pythonista/) and [StaSh](https://github.com/ywangd/stash) using scp. I launched [StaSh](https://github.com/ywangd/stash) and cd'ed to my program folder and entered `scp -p maker file_name.py robot@192.168.1.6:/home/robot/` (ofcourse replace my ip with your ip) after a few seconds the file was transferred. Default user name is _robot_ and password is _maker_ in the [ev3dev](http://www.ev3dev.org/) environment.
@@ -41,7 +41,7 @@ Ok. We now have almost everything we need.
 * We have ev3dev installed on a MicroSD card.
 * The lego brick boots in to the new environment.
 * We are able to transfer files to the brick
-* We are able to execute files on the brick.  
+* We are able to execute programs on the brick.  
 
 All we need to do now is to write the programs
 
@@ -63,7 +63,7 @@ right_motor = LargeMotor(OUTPUT_C); assert right_motor.connected
 col= ColorSensor();                 assert col.connected
 col.mode = 'COL-REFLECT'
 ```
-- Run function. Run both motors at 30% power for 5 seconds and measure color sensor reflective value. Print Max and Min.
+- Run function. Run both motors at 30% power for 5 seconds and measure color sensor reflective value. Print Max and Min. Use the Max and Min values in the Line follower programs below.
 ```python
 def run():
   left_motor.run_direct(duty_cycle_sp=30)
